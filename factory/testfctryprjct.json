@@ -1,0 +1,15 @@
+{
+	"name": "testfctryprjct",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "ed5a8457-a42c-4f21-8029-d38ff451b556",
+		"tenantId": "0c44fd98-6a6c-40f7-8cbe-a03159095bd8"
+	}
+}

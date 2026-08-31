@@ -1,0 +1,81 @@
+{
+	"name": "dataflow_cust",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_gen2_bronze",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_CUSTsinkDataset",
+						"type": "DatasetReference"
+					},
+					"name": "sink1",
+					"rejectedDataLinkedService": {
+						"referenceName": "LS_testprjctstrg",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
+			"transformations": [
+				{
+					"name": "window1"
+				},
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "select1"
+				},
+				{
+					"name": "derivedColumn1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          cid as integer,",
+				"          cname as string,",
+				"          clocation as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: true,",
+				"     wildcardPaths:['cust/*/*/*/*.txt'],",
+				"     partitionBy('hash', 1)) ~> source1",
+				"source1 window(over(cid,",
+				"          cname,",
+				"          clocation),",
+				"     asc(cid, true),",
+				"     rownumber = rowNumber(),",
+				"     partitionBy('hash', 1)) ~> window1",
+				"window1 filter(equals(rownumber,1),",
+				"     partitionBy('hash', 1)) ~> filter1",
+				"filter1 select(mapColumn(",
+				"          cid,",
+				"          cname,",
+				"          clocation",
+				"     ),",
+				"     partitionBy('hash', 1),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 derive(filepath = concat('cust/', toString(currentDate(), 'yyyy/MM/dd'), '/cust.csv')) ~> derivedColumn1",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     rowUrlColumn:'filepath',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
+			]
+		}
+	}
+}

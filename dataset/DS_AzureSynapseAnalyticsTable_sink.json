@@ -1,0 +1,17 @@
+{
+	"name": "DS_AzureSynapseAnalyticsTable_sink",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSynapseAnalytics2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "dimcust"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
