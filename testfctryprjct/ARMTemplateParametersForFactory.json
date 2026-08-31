@@ -1,0 +1,45 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "testfctryprjct"
+		},
+		"AzureSynapseAnalytics2_password": {
+			"value": ""
+		},
+		"FileServer1_password": {
+			"value": ""
+		},
+		"AzureSynapseAnalytics2_properties_typeProperties_server": {
+			"value": "testsqlpool.database.windows.net"
+		},
+		"AzureSynapseAnalytics2_properties_typeProperties_database": {
+			"value": "testpool"
+		},
+		"AzureSynapseAnalytics2_properties_typeProperties_userName": {
+			"value": "Tarak"
+		},
+		"FileServer1_properties_typeProperties_host": {
+			"value": "C:\\data"
+		},
+		"FileServer1_properties_typeProperties_userId": {
+			"value": "Tarak"
+		},
+		"LS_Azurekeyvault_properties_typeProperties_baseUrl": {
+			"value": "https://keyvltonpremdata.vault.azure.net/"
+		},
+		"LS_testprjctstrg_properties_typeProperties_url": {
+			"value": "https://testprjctstrg.dfs.core.windows.net/"
+		},
+		"SqlServer1_properties_typeProperties_server": {
+			"value": "testsqlpool.database.windows.net"
+		},
+		"SqlServer1_properties_typeProperties_database": {
+			"value": "myproject"
+		},
+		"SqlServer1_properties_typeProperties_userName": {
+			"value": "Tarak"
+		}
+	}
+}
